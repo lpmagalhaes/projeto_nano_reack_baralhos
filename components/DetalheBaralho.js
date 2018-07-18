@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 class DetalheBaralho extends React.Component {
 	render() {
-		const {baralho} = this.props
+		const {baralho, perguntas} = this.props
 		return (
 			<View style={styles.container}>
 				<Text>Detalhe Baralho</Text>
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
 	},
 });
 
-function mapStateToProps({baralhos, perguntas},{baralho_id}){
+function mapStateToProps({baralhos, perguntas}, {navigation}){
 	return {
-		baralho: baralhos && baralhos.find(baralho => baralho.id === baralho_id),
-		perguntas: perguntas && perguntas.filter(pergunta => pergunta.baralho_id === baralho_id)
+		baralho: baralhos && baralhos.find(baralho => baralho.id === navigation.state.params.baralho_id),
+		perguntas: perguntas && perguntas.filter(pergunta => pergunta.baralho_id === navigation.state.params.baralho_id)
 	}
 }
 

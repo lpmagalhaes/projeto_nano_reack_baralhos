@@ -2,9 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar} from 'react-native'
 import Baralhos from './Baralhos'
 import NovoBaralho from './NovoBaralho'
-import {createMaterialTopTabNavigator} from 'react-navigation'
+import {createMaterialTopTabNavigator, StackNavigator} from 'react-navigation'
 import {white, purple} from '../helpers/colors'
 import {Constants} from 'expo' 
+import DetalheBaralho from './DetalheBaralho'
 
 function BarraDeEstado ({backgroundColor, ...props}){
 	return (
@@ -43,12 +44,29 @@ const Tabs = createMaterialTopTabNavigator({
 	}
 })
 
+const NavegacaoPrincipal = StackNavigator({
+	Principal: {
+		screen:Tabs,
+	},
+	DetalheBaralho: {
+		screen: DetalheBaralho,
+		navigationOptions:{
+			headerTintColor: white,
+			headerStyle:{
+				backgroundColor: purple,
+			}
+		}
+	}
+}, {
+	
+})
+
 class Principal extends React.Component {
 	render() {
 		return (
 			<View style={{flex: 1}}>
 				<BarraDeEstado backgroundColor={purple} barStyle='light-content' />
-				<Tabs />
+				<NavegacaoPrincipal />
 			</View>
 		);
 	}

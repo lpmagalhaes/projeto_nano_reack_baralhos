@@ -7,7 +7,7 @@ class Baralho extends React.Component {
 		const {baralho, perguntas} = this.props
 		return (
 			<View style={styles.container}>
-				<TouchableOpacity onPress={() => console.log('Cliquei baralho '+baralho.nome)}>
+				<TouchableOpacity onPress={() => this.props.navegarParaOsDetalhes(baralho.id)}>
 					<Text>Baralho</Text>
 					<Text>{baralho.nome}</Text>
 					<Text>{perguntas.length} cartões</Text>
