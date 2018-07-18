@@ -4,23 +4,24 @@ import {connect} from 'react-redux'
 
 class NovoBaralho extends React.Component {
 	state = {
-		inputNome: ''
+		input: ''
 	}
+	aoMudarValorDoInput = (input) => {this.setState({input})} 
 	render() {
-		const {inputNome} = this.state
+		const {input} = this.state
 		return (
-			<View>
-				<KeyboardAvoidingView behavior='padding'> 
+			<KeyboardAvoidingView behavior='padding'> 
+				<View>
 					<Text>NovoBaralho</Text>
 					<TextInput
-						value={inputNome}
-						onChangeValue={(input) => this.setState({inputNome: input})}
+						value={input}
+						onChange={(event) => this.aoMudarValorDoInput(event.target.value)}
 					/>
-				</KeyboardAvoidingView>
+				</View>
 			<TouchableOpacity onPress={() => console.log('Submeter')}>
 				<Text>Submeter</Text>
 			</TouchableOpacity>
-		</View>
+		</KeyboardAvoidingView>
 		);
 	}
 }
