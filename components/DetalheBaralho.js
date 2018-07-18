@@ -2,15 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import {connect} from 'react-redux'
 
-class Baralho extends React.Component {
+class DetalheBaralho extends React.Component {
 	render() {
-		const {baralho, perguntas} = this.props
+		const {baralho} = this.props
 		return (
 			<View style={styles.container}>
-				<TouchableOpacity onPress={() => console.log('Cliquei baralho '+baralho.nome)}>
-					<Text>Baralho</Text>
-					<Text>{baralho.nome}</Text>
-					<Text>{perguntas.length} cartões</Text>
+				<Text>Detalhe Baralho</Text>
+				<Text>{baralho.nome}</Text>
+				<Text>{perguntas.length} cartões</Text>
+				<TouchableOpacity onPress={() => console.log('adicionar carta')}>
+					<Text>Adicionar carta</Text>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={() => console.log('Começar Quiz')}>
+					<Text>Começar Quiz</Text>
 				</TouchableOpacity>
 			</View>
 		)
@@ -33,4 +37,4 @@ function mapStateToProps({baralhos, perguntas},{baralho_id}){
 	}
 }
 
-export default connect(mapStateToProps, null)(Baralho)
+export default connect(mapStateToProps, null)(DetalheBaralho)

@@ -1,6 +1,6 @@
 import React from 'react'
 import {AppRegistry} from 'react-native'
-import Main from './components/Main'
+import Principal from './components/Principal'
 import {createStore, applyMiddleware} from 'redux'
 import rootReducer from './reducers'
 import {Provider} from 'react-redux'
@@ -12,7 +12,7 @@ export default class App extends React.Component{
 	render(){
 		return (
 			<Provider store={store}>
-				<Main />
+				<Principal />
 			</Provider>	
 		)
 	}
