@@ -1,4 +1,4 @@
-import {PEGAR_BARALHOS_INICIAIS, PEGAR_PERGUNTAS_INICIAIS} from '../actions'
+import {PEGAR_BARALHOS_INICIAIS, PEGAR_PERGUNTAS_INICIAIS, ADICIONAR_BARALHO, ADICIONAR_PERGUNTA} from '../actions'
 import {combineReducers} from 'redux'
 
 const estadoInicialBaralhos = [
@@ -35,6 +35,8 @@ function baralhos(state = estadoInicialBaralhos, action){
 	switch(action.type){
 		case PEGAR_BARALHOS_INICIAIS:
 			return [...state, ...action.baralhos]
+		case ADICIONAR_BARALHO:
+			return [...state, action.baralho]
 		default:
 			return state
 	}
@@ -44,6 +46,8 @@ function perguntas(state = estadoInicialPerguntas, action){
 	switch(action.type){
 		case PEGAR_PERGUNTAS_INICIAIS:
 			return [...state, ...action.perguntas]
+		case ADICIONAR_PERGUNTA:
+			return [...state, action.pergunta]
 		default:
 			return state
 	}

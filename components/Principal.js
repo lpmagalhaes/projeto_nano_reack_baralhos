@@ -2,10 +2,12 @@ import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar} from 'react-native'
 import Baralhos from './Baralhos'
 import NovoBaralho from './NovoBaralho'
-import {createMaterialTopTabNavigator, StackNavigator} from 'react-navigation'
-import {white, purple} from '../helpers/colors'
+import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation'
+import {white, purple, black} from '../helpers/colors'
 import {Constants} from 'expo' 
 import DetalheBaralho from './DetalheBaralho'
+import Quiz from './Quiz'
+import NovaPergunta from './NovaPergunta'
 
 function BarraDeEstado ({backgroundColor, ...props}){
 	return (
@@ -44,9 +46,12 @@ const Tabs = createMaterialTopTabNavigator({
 	}
 })
 
-const NavegacaoPrincipal = StackNavigator({
+const NavegacaoPrincipal = createStackNavigator({
 	Principal: {
 		screen:Tabs,
+		navigationOptions:{
+			header: null,
+		}
 	},
 	DetalheBaralho: {
 		screen: DetalheBaralho,
@@ -54,6 +59,24 @@ const NavegacaoPrincipal = StackNavigator({
 			headerTintColor: white,
 			headerStyle:{
 				backgroundColor: purple,
+			}
+		}
+	},
+	Quiz:{
+		screen: Quiz,
+		navigationOptions:{
+			headerTintColor: white,
+			headerStyle:{
+				backgroundColor: purple
+			}
+		}
+	},
+	NovaPergunta:{
+		screen: NovaPergunta,
+		navigationOptions:{
+			headerTintColor: white,
+			headerStyle:{
+				backgroundColor: purple
 			}
 		}
 	}

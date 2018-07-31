@@ -3,6 +3,17 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import {connect} from 'react-redux'
 
 class DetalheBaralho extends React.Component {
+	navegarParaOQuiz(id){
+		this.props.navigation.navigate(
+			'Quiz',
+			{baralho_id: id}
+		)}
+	navegarParaNovaPegunta(id){
+		this.props.navigation.navigate(
+			'NovaPergunta',
+			{baralho_id: id}
+		)}
+	
 	render() {
 		const {baralho, perguntas} = this.props
 		return (
@@ -10,10 +21,10 @@ class DetalheBaralho extends React.Component {
 				<Text>Detalhe Baralho</Text>
 				<Text>{baralho.nome}</Text>
 				<Text>{perguntas.length} cartões</Text>
-				<TouchableOpacity onPress={() => console.log('adicionar carta')}>
+				<TouchableOpacity onPress={() => this.navegarParaNovaPegunta(baralho.id)}>
 					<Text>Adicionar carta</Text>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() => console.log('Começar Quiz')}>
+				<TouchableOpacity onPress={() => this.navegarParaOQuiz(baralho.id)}>
 					<Text>Começar Quiz</Text>
 				</TouchableOpacity>
 			</View>

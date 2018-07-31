@@ -20,8 +20,8 @@ class Baralhos extends React.Component {
 							key={baralho.id} 
 							navegarParaOsDetalhes={(id) => this.navegarParaOsDetalhes(id)}	
 						/>)}
-				</ScrollView>
-			</View>
+					</ScrollView>
+				</View>
 		);
 	}
 }

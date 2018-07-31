@@ -1,12 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
+import {adicionarBaralho} from '../actions'
+import {NavigationActions} from 'react-navigation'
 
 class NovoBaralho extends React.Component {
 	state = {
-		input: ''
+		input: '',
+		mostrarMensagemDeErro: false,
 	}
-	aoMudarValorDoInput = (input) => {this.setState({input})} 
+	submeter = () => {
+		const {input} = this.state
+		if(input === ''){
+			this.setState({mostrarMensagemDeErro: true})
+		}else{
+			let baralho = {}
+			baralho.id = Date.now() + ''
+			baralho.nome = input
+			this.props.adicionarBaralho(baralho)
+			this.props.navigation.dispatch(NavigationActions.back({key: 'NovoBaralho'}))
+		}
+	}
 	render() {
 		const {input} = this.state
 		return (
@@ -15,10 +29,10 @@ class NovoBaralho extends React.Component {
 					<Text>NovoBaralho</Text>
 					<TextInput
 						value={input}
-						onChange={(event) => this.aoMudarValorDoInput(event.target.value)}
+						onChangeText={(text) => this.setState({input: text})}
 					/>
 				</View>
-			<TouchableOpacity onPress={() => console.log('Submeter')}>
+			<TouchableOpacity onPress={() => this.submeter()}>
 				<Text>Submeter</Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>
@@ -26,18 +40,9 @@ class NovoBaralho extends React.Component {
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
-
 function mapDispatchToProps(dispatch){
 	return {
-
+		adicionarBaralho: (data) => dispatch(adicionarBaralho(data)),
 	}
 }
 
