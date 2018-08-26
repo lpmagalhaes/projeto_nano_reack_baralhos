@@ -24,9 +24,11 @@ class DetalheBaralho extends React.Component {
 				<TouchableOpacity onPress={() => this.navegarParaNovaPegunta(baralho.id)}>
 					<Text>Adicionar carta</Text>
 				</TouchableOpacity>
+				{perguntas.length > 0 &&
 				<TouchableOpacity onPress={() => this.navegarParaOQuiz(baralho.id)}>
 					<Text>Começar Quiz</Text>
 				</TouchableOpacity>
+				}
 			</View>
 		)
 	}
@@ -42,9 +44,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps({baralhos, perguntas}, {navigation}){
+	const baralho_id = navigation.state.params.baralho_id
 	return {
-		baralho: baralhos && baralhos.find(baralho => baralho.id === navigation.state.params.baralho_id),
-		perguntas: perguntas && perguntas.filter(pergunta => pergunta.baralho_id === navigation.state.params.baralho_id)
+		baralho: baralhos && baralhos.find(baralho => baralho.id === baralho_id),
+		perguntas: perguntas && perguntas.filter(pergunta => pergunta.baralho_id === baralho_id)
 	}
 }
 

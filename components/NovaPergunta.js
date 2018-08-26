@@ -1,31 +1,63 @@
 import React from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Picker } from 'react-native';
+import {connect} from 'react-redux'
+import {adicionarPerguntaAoAsyncStorage} from '../actions'
+import {NavigationActions} from 'react-navigation'
 
-export default class Baralhos extends React.Component {
+
+class NovaPergunta extends React.Component {
 	state = {
 		inputPergunta: '',
-		inputResposta: '',
+		inputResposta: null,
+		mostrarMensagemDeErro: false,
 	}
-	aoMudarValorDoInputPergunta = (input) => {this.setState({inputPergunta: input})} 
-	aoMudarValorDoInputResposta = (input) => {this.setState({inputResposta: input})} 
-	render() {
+	submeter = () => {
 		const {inputPergunta, inputResposta} = this.state
+		if(inputPergunta === '' || inputResposta === '0'){
+			this.setState({mostrarMensagemDeErro: true})
+		}else{
+			const {baralho, perguntas} = this.props
+			let pergunta = {}
+			pergunta.id = Date.now() + ''
+			pergunta.pergunta = inputPergunta 
+			pergunta.resposta = (inputResposta == 'true')
+			pergunta.posicao = perguntas.length
+			pergunta.baralho_id = baralho.id
+			this.props.adicionarPerguntaAoAsyncStorage(pergunta)
+			this.setState({inputPergunta: '', inputResposta: '', mostrarMensagemDeErro: false})
+			this.props.navigation.navigate(
+				'DetalheBaralho',
+				{baralho_id: baralho.id}
+			)
+		}
+	}
+	render() {
+		const {inputPergunta, inputResposta, mostrarMensagemDeErro} = this.state
 		return (
 			<KeyboardAvoidingView behavior='padding'> 
+				{mostrarMensagemDeErro &&
+				<View>
+					<Text>Preencha a pergunta e resposta</Text>
+				</View>
+				}
 				<View>
 					<Text>Pergunta</Text>
 					<Text>Nova Pergunta</Text>
 						<TextInput
 						value={inputPergunta}
-						onChange={(event) => this.aoMudarValorDoInputPergunta(event.target.value)}
+						onChangeText={(text) => this.setState({inputPergunta: text})}
 					/>
 					<Text>Resposta</Text>
-					<TextInput
-						value={inputResposta}
-						onChange={(event) => this.aoMudarValorDoInputResposta(event.target.value)}
-					/>
+					<Picker
+		  				selectedValue={this.state.inputResposta}
+						style={{ height: 50, width: 300 }}
+						onValueChange={(itemValue, itemIndex) => this.setState({inputResposta: itemValue})}>
+						<Picker.Item label="SELECIONE" value="0" />
+						<Picker.Item label="SIM" value="true" />
+						<Picker.Item label="NÃO" value="false" />
+					</Picker>
 				</View>
-			<TouchableOpacity onPress={() => console.log('Submeter')}>
+			<TouchableOpacity onPress={() => this.submeter()}>
 				<Text>Submeter</Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>
@@ -41,3 +73,19 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
+
+function mapStateToProps({baralhos, perguntas},{navigation}){
+	const baralho_id = navigation.state.params.baralho_id
+	return {
+		baralho: baralhos && baralhos.find(baralho => baralho.id === baralho_id),
+		perguntas: perguntas && perguntas.filter(pergunta => pergunta.baralho_id === baralho_id)
+	}
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		adicionarPerguntaAoAsyncStorage: (data) => dispatch(adicionarPerguntaAoAsyncStorage(data)),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NovaPergunta)

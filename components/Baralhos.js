@@ -13,6 +13,7 @@ class Baralhos extends React.Component {
 		const {baralhos} = this.props
 		return (
 			<View> 
+				{baralhos &&
 				<ScrollView>
 					{baralhos.map(baralho => 
 						<Baralho 
@@ -20,8 +21,10 @@ class Baralhos extends React.Component {
 							key={baralho.id} 
 							navegarParaOsDetalhes={(id) => this.navegarParaOsDetalhes(id)}	
 						/>)}
-					</ScrollView>
-				</View>
+				</ScrollView>
+				}
+				{baralhos.length === 0 && <Text>Sem Baralhos cadastrados</Text>}
+			</View>
 		);
 	}
 }

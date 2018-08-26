@@ -8,6 +8,23 @@ import {Constants} from 'expo'
 import DetalheBaralho from './DetalheBaralho'
 import Quiz from './Quiz'
 import NovaPergunta from './NovaPergunta'
+import {connect} from 'react-redux'
+import {pegarBaralhosNoAsyncStorage, pegarPerguntasNoAsyncStorage} from '../actions'
+
+class Principal extends React.Component {
+	componentDidMount(){
+		this.props.pegarBaralhosNoAsyncStorage()
+		this.props.pegarPerguntasNoAsyncStorage()
+	}
+	render() {
+		return (
+			<View style={{flex: 1}}>
+				<BarraDeEstado backgroundColor={purple} barStyle='light-content' />
+				<NavegacaoPrincipal />
+			</View>
+		);
+	}
+}
 
 function BarraDeEstado ({backgroundColor, ...props}){
 	return (
@@ -84,15 +101,12 @@ const NavegacaoPrincipal = createStackNavigator({
 	
 })
 
-class Principal extends React.Component {
-	render() {
-		return (
-			<View style={{flex: 1}}>
-				<BarraDeEstado backgroundColor={purple} barStyle='light-content' />
-				<NavegacaoPrincipal />
-			</View>
-		);
+
+function mapDispatchToProps(dispatch){
+	return {
+		pegarBaralhosNoAsyncStorage: () => dispatch(pegarBaralhosNoAsyncStorage()),
+		pegarPerguntasNoAsyncStorage: () => dispatch(pegarPerguntasNoAsyncStorage()),
 	}
 }
 
-export default Principal
+export default connect(null, mapDispatchToProps)(Principal)

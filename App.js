@@ -5,6 +5,7 @@ import {createStore, applyMiddleware} from 'redux'
 import rootReducer from './reducers'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
+import {setarNotificacaoLocal} from './helpers/helper'
 
 const logger = store => next => action => { 
 	console.group(action.type)
@@ -18,6 +19,9 @@ const logger = store => next => action => {
 const store = createStore(rootReducer, applyMiddleware(logger, thunk))
 
 export default class App extends React.Component{
+	componentDidMount(){
+		setarNotificacaoLocal()
+	}
 	render(){
 		return (
 			<Provider store={store}>
@@ -26,4 +30,3 @@ export default class App extends React.Component{
 		)
 	}
 }
-

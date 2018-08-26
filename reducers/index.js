@@ -1,4 +1,5 @@
-import {PEGAR_BARALHOS_INICIAIS, PEGAR_PERGUNTAS_INICIAIS, ADICIONAR_BARALHO, ADICIONAR_PERGUNTA} from '../actions'
+import {PEGAR_BARALHOS_INICIAIS, PEGAR_PERGUNTAS_INICIAIS,
+	ADICIONAR_BARALHO, ADICIONAR_PERGUNTA} from '../actions'
 import {combineReducers} from 'redux'
 
 const estadoInicialBaralhos = [
@@ -20,18 +21,20 @@ const estadoInicialPerguntas = [
 	{
 		id: '1',
 		baralho_id: '1',
-		pergunta: 'O que é React',
-		resposta: 'Uma biblioteca de gerenciamento de interfaces',
+		posicao: 0,
+		pergunta: 'O que é React? Uma biblioteca de gerenciamento de interfaces',
+		resposta: true
 	},
 	{
 		id: '2',
 		baralho_id: '1',
-		pergunta: 'Onde faço requisições Ajax no React?',
-		resposta: 'No evento componentDidMount do ciclo de vida do React',
+		posicao: 1,
+		pergunta: 'Onde faço requisições Ajax no React? No evento componentDidMount do ciclo de vida do React',
+		resposta: true
 	},
 ]
 
-function baralhos(state = estadoInicialBaralhos, action){
+function baralhos(state = [], action){
 	switch(action.type){
 		case PEGAR_BARALHOS_INICIAIS:
 			return [...state, ...action.baralhos]
@@ -42,7 +45,7 @@ function baralhos(state = estadoInicialBaralhos, action){
 	}
 }
 
-function perguntas(state = estadoInicialPerguntas, action){
+function perguntas(state = [], action){
 	switch(action.type){
 		case PEGAR_PERGUNTAS_INICIAIS:
 			return [...state, ...action.perguntas]

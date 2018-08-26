@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import {connect} from 'react-redux'
-import {adicionarBaralho} from '../actions'
+import {adicionarBaralhoAoAsyncStorage} from '../actions'
 import {NavigationActions} from 'react-navigation'
 
 class NovoBaralho extends React.Component {
@@ -17,14 +17,20 @@ class NovoBaralho extends React.Component {
 			let baralho = {}
 			baralho.id = Date.now() + ''
 			baralho.nome = input
-			this.props.adicionarBaralho(baralho)
+			this.props.adicionarBaralhoAoAsyncStorage(baralho)
+			this.setState({input: '', mostrarMensagemDeErro: false})
 			this.props.navigation.dispatch(NavigationActions.back({key: 'NovoBaralho'}))
 		}
 	}
 	render() {
-		const {input} = this.state
+		const {input, mostrarMensagemDeErro} = this.state
 		return (
 			<KeyboardAvoidingView behavior='padding'> 
+				{mostrarMensagemDeErro &&
+				<View>
+					<Text>Preencha o nome do baralho</Text>
+				</View>
+				}
 				<View>
 					<Text>NovoBaralho</Text>
 					<TextInput
@@ -32,17 +38,17 @@ class NovoBaralho extends React.Component {
 						onChangeText={(text) => this.setState({input: text})}
 					/>
 				</View>
-			<TouchableOpacity onPress={() => this.submeter()}>
-				<Text>Submeter</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+				<TouchableOpacity onPress={() => this.submeter()}>
+					<Text>Submeter</Text>
+				</TouchableOpacity>
+			</KeyboardAvoidingView>
 		);
 	}
 }
 
 function mapDispatchToProps(dispatch){
 	return {
-		adicionarBaralho: (data) => dispatch(adicionarBaralho(data)),
+		adicionarBaralhoAoAsyncStorage: (data) => dispatch(adicionarBaralhoAoAsyncStorage(data)),
 	}
 }
 
