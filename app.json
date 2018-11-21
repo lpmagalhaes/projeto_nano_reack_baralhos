@@ -2,10 +2,10 @@
   "expo": {
 	      "sdkVersion": "27.0.0",
 	      "orientation": "portrait",
-	      "name": "Baralhos",
+	      "name": "Baralhos1",
 	      "description": "Baralhos para responder",
-	      "slug": "baralhos",
-	      "version": "1.0",
+	      "slug": "baralhos1",
+	      "version": "1.1",
 	  	  "icon": "https://png.icons8.com/color/50/000000/questions.png",
 	      "notification": {
 			        "icon": "https://png.icons8.com/color/50/000000/questions.png"

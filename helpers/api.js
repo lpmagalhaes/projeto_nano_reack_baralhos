@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react-native'
 
-const CHAVE_BARALHOS = 'Baralhos:baralhos'
-const CHAVE_PERGUNTAS = 'Baralhos:perguntas'
+const CHAVE_BARALHOS = 'Baralhos:baralhos1'
+const CHAVE_PERGUNTAS = 'Baralhos:perguntas1'
 
 export function recuperarBaralhos(){
 	return AsyncStorage.getItem(CHAVE_BARALHOS)
