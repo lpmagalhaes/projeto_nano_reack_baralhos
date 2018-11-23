@@ -17,6 +17,14 @@ const estadoInicialBaralhos = [
 	},
 ]
 
+let estadoInicialBaralhos1 = []
+for(let indice= 1; indice <= 2000; indice++){
+	let baralho = {
+		id: indice,
+		nome: indice,
+	}
+	estadoInicialBaralhos1.push(baralho)
+}
 const estadoInicialPerguntas = [
 	{
 		id: '1',
@@ -34,7 +42,8 @@ const estadoInicialPerguntas = [
 	},
 ]
 
-function baralhos(state = [], action){
+//function baralhos(state = [], action){
+function baralhos(state = estadoInicialBaralhos1, action){
 	switch(action.type){
 		case PEGAR_BARALHOS_INICIAIS:
 			return [...state, ...action.baralhos]
